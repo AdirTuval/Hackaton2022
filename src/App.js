@@ -1,44 +1,40 @@
 import "./App.css";
-<<<<<<< HEAD
-import React, {useState} from "react";
-import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import {Typography} from '@material-ui/core'; 
+import React, { useState } from "react";
+import {
+  createTheme,
+  ThemeProvider,
+  makeStyles,
+} from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 import SuperMap from "./Map";
 import Home from "./Home";
 import NavBar from "./components/NavBar";
+import { CalculatePath } from "./Backend/PathFinder/PathFinder";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main:"#2e1667",
+      main: "#2e1667",
     },
     secondary: {
-      main:"#c7d8ed",
+      main: "#c7d8ed",
     },
   },
   typography: {
-    fontFamily: [
-      'Roboto'
-    ],
+    fontFamily: ["Roboto"],
     h4: {
       fontWeight: 600,
       fontSize: 28,
-      lineHeight: '2rem',
-      },
+      lineHeight: "2rem",
+    },
     h5: {
       fontWeight: 100,
-      lineHeight: '2rem',
+      lineHeight: "2rem",
     },
   },
 });
 
-const styles = makeStyles({
-})
-
-
-=======
-import { CalculatePath } from "./Backend/PathFinder/PathFinder";
->>>>>>> 647ef9e (general skeleton of backend)
+const styles = makeStyles({});
 
 function App() {
   const [supermarket, setSupermarket] = React.useState();
@@ -46,17 +42,9 @@ function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      <ThemeProvider theme={theme}>
-
-        <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
-      {supermarket && <SuperMap supermarket={supermarket} setSupermarket={setSupermarket}/>}
-      {!supermarket && <Home setSupermarket={setSupermarket}/>}
-      </ThemeProvider>
-=======
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h3>{CalculatePath([4, 6])}</h3>
+        <h3>{CalculatePath()}</h3>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -69,9 +57,8 @@ function App() {
           Learn React
         </a>
       </header>
->>>>>>> 647ef9e (general skeleton of backend)
     </div>
-  )
+  );
 }
 
 export default App;
