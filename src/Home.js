@@ -7,22 +7,25 @@ import { ReactComponent as Camera } from './assets/camera.svg';
 export default function Home({supermarket, setSupermarket, setUseMapPage}) {
 
     return (
-        <div container className="home-page" style={{ backgroundColor: '#f5e9d6' }}>
-            <div style={{ margin: 25 }}>
+        <div container className="home-page" style={{ padding: 10, backgroundColor: '#f5e9d6' }}>
+            <div style={{ margin: 26, marginTop: 30 }}>
                 <Logo />
             </div>
 
-            <div container style={{ margin: 25}}>
+            <div container style={{ marginTop: 35 }}>
                 <SuperDropdown supermarket={supermarket} setSupermarket={setSupermarket}/>
             </div>
 
-            <div container style={{ margin: 25 }}>
+            <div container style={{ marginTop: 250 }}>
                 <Camera />
                 <p>Upload Shopping List</p>
             </div>
 
-            <div container style={{ margin: 25 }}>
+            <div container style={{ marginTop: 55 }}>
                 <CustomBtn txt={"Start Shopping"} action={() => setUseMapPage(true)}/>
+            </div>
+            <div container style={{ marginBottom: 175}}>
+
             </div>
         
         </div>
