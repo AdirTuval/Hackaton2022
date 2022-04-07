@@ -8,11 +8,11 @@ export default function Home({supermarket, setSupermarket, setUseMapPage}) {
 
     return (
         <div container className="home-page" style={{ padding: 10, backgroundColor: '#f5e9d6' }}>
-            <div style={{ margin: 26, marginTop: 30 }}>
+            <div style={{ margin: 26, marginTop: 40 }}>
                 <Logo />
             </div>
 
-            <div container style={{ marginTop: 35 }}>
+            <div container style={{ marginTop: 60 }}>
                 <SuperDropdown supermarket={supermarket} setSupermarket={setSupermarket}/>
             </div>
 
