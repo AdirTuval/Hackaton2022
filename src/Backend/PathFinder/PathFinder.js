@@ -1,6 +1,7 @@
 import { Node } from "./Node";
 export const CalculatePath = (productsId) => {
   const completeGraph = getGraph();
+<<<<<<< HEAD
   //   console.log(completeGraph);
   let floydWarshallMatrix = initFloydWarshallMatrix(completeGraph);
   fillFloydWarshallMatrix(floydWarshallMatrix);
@@ -10,10 +11,20 @@ export const CalculatePath = (productsId) => {
     productsId
   );
   console.log(reconstructPath(shortestProductsPath, floydWarshallMatrix));
+=======
+  console.log(completeGraph);
+  //   let floydWarshallMatrix = initFloydWarshallMatrix(completeGraph);
+  //   fillFloydWarshallMatrix(floydWarshallMatrix);
+  //   const shortestProductsPath = calculateShortestProductsPath(
+  //     floydWarshallMatrix.distance,
+  //     productsId
+  //   );
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
 };
 
 const getGraph = () => {
   const graphJson = require("./matrix.json");
+<<<<<<< HEAD
   let nodes = new Map();
   let edges = [];
 
@@ -26,13 +37,31 @@ const getGraph = () => {
       let nodeB = nodes.get(nodeId);
       edges.push([nodeA, nodeB]);
       nodeA.addAdjacent(nodeB);
+=======
+  console.log(graphJson);
+  let nodes = [];
+  let edges = [];
+
+  graphJson.graph.nodes.forEach((nodeObj) => nodes.push(new Node(nodeObj.id)));
+  graphJson.graph.nodes.forEach((nodeObj) => {
+    nodeObj.adjacent.forEach((edge) => {
+      let nodeA = nodes[edge[0]];
+      let nodeB = nodes[edge[1]];
+      edges.push([nodeA, nodeB]);
+      nodeA.addAdjacent(nodeB);
+      nodeB.addAdjacent(nodeA);
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
     });
   });
   return { nodes: nodes, edges: edges };
 };
 
 const initFloydWarshallMatrix = (graph) => {
+<<<<<<< HEAD
   let nodeNum = Math.max(...graph.nodes.keys()) + 1;
+=======
+  let nodeNum = graph.nodes.length;
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
   let distanceMatrix = [...Array(nodeNum)].map((x) =>
     Array(nodeNum).fill(Infinity)
   );
@@ -75,8 +104,13 @@ const fillFloydWarshallMatrix = (matrices) => {
 };
 
 const calculateShortestProductsPath = (distanceMatrix, productsId) => {
+<<<<<<< HEAD
   const beginProductId = 0;
   const endProductId = 9;
+=======
+  const beginProductId = 8;
+  const endProductId = 10;
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
   let visitedProducts = new Set();
   let pathFromStart = [beginProductId];
   let pathFromEnd = [endProductId];
@@ -95,7 +129,12 @@ const calculateShortestProductsPath = (distanceMatrix, productsId) => {
       distanceMatrix
     );
   }
+<<<<<<< HEAD
   return pathFromStart.concat(pathFromEnd.reverse());
+=======
+  console.log(pathFromStart);
+  console.log(pathFromEnd);
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
 };
 
 const addClosestProductToPath = (
@@ -116,6 +155,7 @@ const addClosestProductToPath = (
       nearestNeighbor = product;
     }
   }
+<<<<<<< HEAD
   if (nearestNeighbor === null) {
     return;
   }
@@ -143,3 +183,8 @@ const getShortestPathBetween = (nodeA, nodeB, nextMatrix) => {
   }
   return path;
 };
+=======
+  visitedProducts.add(nearestNeighbor);
+  productsPath.push(nearestNeighbor);
+};
+>>>>>>> b7f3e0f1009ce64b393efc65aa70e9c951745ad1
