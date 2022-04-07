@@ -65,20 +65,24 @@ const MapTest = () => {
 
     }, [drawNodes])
     const drawPath = () => {
-        let ctx = canvas.current.getContext("2d")
-        const nodes_in_path = node_path
-        ctx.fillStyle = "green";
-        ctx.beginPath();
 
-        ctx.moveTo(nodes[0]['x'], nodes[0]['y']);
+        let ctx = canvas.current.getContext("2d")
+        const nodes_in_path = [0,2,3,4,5]
+        const nodes = node_list
+
+
+        ctx.fillStyle = "blue";
+        ctx.beginPath();
+        let loc = nodes_in_path[0]
+        console.log(nodes[loc])
+        ctx.moveTo(nodes[loc]["x"], nodes[loc]["y"]);
 
         for (let i = 0; i < nodes_in_path.length - 1; i++) {
-            let loc = nodes[i]
-            ctx.lineTo(nodes_in_path[i + 1]['x'], nodes_in_path[i + 1]['y']);
+            loc = nodes_in_path[i + 1]
+            ctx.lineTo(nodes[loc]['x'], nodes[loc]['y']);
         }
         ctx.stroke();
-        ctx.fillStyle = "red";
-
+        // ctx.fillStyle = "red";
     }
     useEffect(() => {
         if (img && canvas) {
