@@ -5,6 +5,7 @@ import {Typography} from '@material-ui/core';
 import SuperMap from "./Map";
 import Home from "./Home";
 import NavBar from "./components/NavBar";
+import MapTest from "./MapTest";
 
 const theme = createTheme({
   palette: {
@@ -45,7 +46,7 @@ function App() {
       <ThemeProvider theme={theme}>
 
         <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
-      {supermarket && <SuperMap supermarket={supermarket} setSupermarket={setSupermarket}/>}
+      {supermarket && <MapTest supermarket={supermarket} setSupermarket={setSupermarket}/>}
       {!supermarket && <Home setSupermarket={setSupermarket}/>}
       </ThemeProvider>
     </div>
