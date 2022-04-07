@@ -2,6 +2,7 @@ import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import image from './super_map.jpeg';
 import {makeStyles } from '@material-ui/core/styles';
+import Map, { Marker } from 'react-canvas-map'
 
 const useStyles = makeStyles({
     splitScreen: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function Map({supermarket, setSupermarket}) {
+export default function SuperMap({supermarket, setSupermarket}) {
     const styles = useStyles();
 
     return (
@@ -29,7 +30,10 @@ export default function Map({supermarket, setSupermarket}) {
                     initialScale={1}
                     >
                         <TransformComponent>
-                        <img src={image} alt="map" style={{ width: "100%"}} />
+                        <Map
+                            image={image}
+                        ></Map>
+                        {/* <img src={image} alt="map" style={{ width: "100%"}} /> */}
                         </TransformComponent>
                      </TransformWrapper>   
                 </div>
