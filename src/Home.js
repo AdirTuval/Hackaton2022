@@ -7,7 +7,7 @@ import { ReactComponent as Camera } from './assets/camera.svg';
 export default function Home({supermarket, setSupermarket, setUseMapPage}) {
 
     return (
-        <div container className="home-page" style={{ padding: 10, backgroundColor: '#f5e9d6' }}>
+        <div container className="home-page" style={{ padding: 10, backgroundColor: '#FFFCFC' }}>
             <div style={{ margin: 26, marginTop: 40 }}>
                 <Logo />
             </div>
