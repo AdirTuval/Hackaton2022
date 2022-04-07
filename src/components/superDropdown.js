@@ -9,7 +9,7 @@ export default function SuperDropdown({supermarket, setSupermarket}) {
 
   const handleChange = (event) => {
     setSupermarket(event.target.value);
-    console.log(supermarket);
+    console.log("Dropdown: " + supermarket);
   };
 
 
