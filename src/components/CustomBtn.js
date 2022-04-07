@@ -11,11 +11,10 @@ const StyledButton = withStyles({
         height: "44px",
         padding: "0 25px",
         boxSizing: "border-box",
-        borderRadius: 0, 
-        background: "#4f25f7",
+        borderRadius: 10.5,
+        background: "#DE9846",
         color: "#fff",
         transform: "none",
-        boxShadow: "6px 6px 0 0 #c7d8ed",
         transition: "background .3s,border-color .3s,color .3s",
         "&:hover": {
             backgroundColor:  "#4f25f7"

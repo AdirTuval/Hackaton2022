@@ -44,10 +44,9 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-
-        <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
-      {supermarket && <MapTest supermarket={supermarket} setSupermarket={setSupermarket}/>}
-      {!supermarket && <Home setSupermarket={setSupermarket}/>}
+        {/* <NavBar useMapPage={useMapPage} setUseMapPage={setUseMapPage}/> */}
+        {useMapPage && <Map supermarket={supermarket} setSupermarket={setSupermarket}/>}
+        {!useMapPage && <Home supermarket={supermarket} setSupermarket={setSupermarket} setUseMapPage={setUseMapPage}/>}
       </ThemeProvider>
     </div>
   )
