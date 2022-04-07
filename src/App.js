@@ -2,7 +2,7 @@ import "./App.css";
 import React, {useState} from "react";
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core'; 
-import Map from "./Map";
+import SuperMap from "./Map";
 import Home from "./Home";
 import NavBar from "./components/NavBar";
 
@@ -43,9 +43,10 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <NavBar useMapPage={useMapPage} setUseMapPage={setUseMapPage}/>
-        {useMapPage && <Map supermarket={supermarket} setSupermarket={setSupermarket}/>}
-        {!useMapPage && <Home supermarket={supermarket} setSupermarket={setSupermarket} setUseMapPage={setUseMapPage}/>}
+
+        <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
+      {supermarket && <SuperMap supermarket={supermarket} setSupermarket={setSupermarket}/>}
+      {!supermarket && <Home setSupermarket={setSupermarket}/>}
       </ThemeProvider>
     </div>
   )
