@@ -1,26 +1,53 @@
-import logo from "./logo.svg";
 import "./App.css";
+import React, {useState} from "react";
+import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import {Typography} from '@material-ui/core'; 
+import Map from "./Map";
+import Home from "./Home";
+import NavBar from "./components/NavBar";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main:"#2e1667",
+    },
+    secondary: {
+      main:"#c7d8ed",
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Roboto'
+    ],
+    h4: {
+      fontWeight: 600,
+      fontSize: 28,
+      lineHeight: '2rem',
+      },
+    h5: {
+      fontWeight: 100,
+      lineHeight: '2rem',
+    },
+  },
+});
+
+const styles = makeStyles({
+})
+
+
 
 function App() {
+  const [supermarket, setSupermarket] = React.useState();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h3>aaaaa</h3>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
+      {supermarket && <Map supermarket={supermarket} setSupermarket={setSupermarket}/>}
+      {!supermarket && <Home setSupermarket={setSupermarket}/>}
+      </ThemeProvider>
     </div>
-  );
+  )
 }
 
 export default App;
