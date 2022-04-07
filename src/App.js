@@ -38,13 +38,14 @@ const styles = makeStyles({
 
 function App() {
   const [supermarket, setSupermarket] = React.useState();
+  const [useMapPage, setUseMapPage] = React.useState();
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
-      {supermarket && <Map supermarket={supermarket} setSupermarket={setSupermarket}/>}
-      {!supermarket && <Home setSupermarket={setSupermarket}/>}
+        {useMapPage && <Map supermarket={supermarket} setSupermarket={setSupermarket}/>}
+        {!useMapPage && <Home setSupermarket={setSupermarket}/>}
       </ThemeProvider>
     </div>
   )
