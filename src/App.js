@@ -2,9 +2,10 @@ import "./App.css";
 import React, {useState} from "react";
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core'; 
-import Map from "./Map";
+import SuperMap from "./Map";
 import Home from "./Home";
 import NavBar from "./components/NavBar";
+import MapTest from "./MapTest";
 
 const theme = createTheme({
   palette: {
