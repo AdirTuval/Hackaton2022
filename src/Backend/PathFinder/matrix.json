@@ -74,7 +74,7 @@
                 {"id" : 96, "product" : "undef", "corx" : 6, "cory" : 9, "adjacent" : [97, 86], "inBuyList" : false },
                 {"id" : 97, "product" : "undef", "corx" : 7, "cory" : 9, "adjacent" : [98, 96, 87], "inBuyList" : false },
                 {"id" : 98, "product" : "98", "corx" : 8, "cory" : 9, "adjacent" : [99, 97], "inBuyList" : false },
-                {"id" : 99, "product" : "undef", "corx" : 9, "cory" : 9, "adjacent" : [98, 89], "inBuyList" : false },
+                {"id" : 99, "product" : "undef", "corx" : 9, "cory" : 9, "adjacent" : [98, 89], "inBuyList" : false }
         ]
     }
 }
