@@ -1,4 +1,5 @@
 import "./App.css";
+<<<<<<< HEAD
 import React, {useState} from "react";
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core'; 
@@ -36,6 +37,9 @@ const styles = makeStyles({
 })
 
 
+=======
+import { CalculatePath } from "./Backend/PathFinder/PathFinder";
+>>>>>>> 647ef9e (general skeleton of backend)
 
 function App() {
   const [supermarket, setSupermarket] = React.useState();
@@ -43,12 +47,30 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       <ThemeProvider theme={theme}>
 
         <NavBar supermarket={supermarket} setSupermarket={setSupermarket}/>
       {supermarket && <MapTest supermarket={supermarket} setSupermarket={setSupermarket}/>}
       {!supermarket && <Home setSupermarket={setSupermarket}/>}
       </ThemeProvider>
+=======
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h3>{CalculatePath()}</h3>
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+>>>>>>> 647ef9e (general skeleton of backend)
     </div>
   )
 }
