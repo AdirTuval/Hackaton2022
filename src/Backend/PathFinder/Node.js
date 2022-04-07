@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 export class Node {
   constructor(id) {
     this.id = id;
+=======
+class Node {
+  constructor(value) {
+    this.value = value;
+>>>>>>> 647ef9e (general skeleton of backend)
     this.adjacents = []; // adjacency list
   }
 

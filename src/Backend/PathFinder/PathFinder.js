@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Node } from "./Node";
 export const CalculatePath = (productsId) => {
   const completeGraph = getGraph();
@@ -118,3 +119,18 @@ const addClosestProductToPath = (
   visitedProducts.add(nearestNeighbor);
   productsPath.push(nearestNeighbor);
 };
+=======
+export const CalculatePath = (products_id) => {
+  sparseGraph = getGraph();
+  graph = getSquashedGraph(sparseGraph, products_id);
+  distancesMatrix = getDistanceMatrix(graph, products_id); //floyd-warshall
+  shortestPathVerticesList = getShortestPath();
+  fullPath = convertSquashedPathToFullPath(
+    shortestPathVerticesList,
+    sparseGraph
+  );
+  return fullPath;
+};
+
+const getGraph = () => {};
+>>>>>>> 647ef9e (general skeleton of backend)
