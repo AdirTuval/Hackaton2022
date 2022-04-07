@@ -14,7 +14,7 @@ export default function SuperDropdown({supermarket, setSupermarket}) {
 
 
     return (
-        <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, maxWidth: 140, mr: 'auto', ml: 'auto' }}>
       <FormControl fullWidth>
         <InputLabel id="super-dropdown">Supermarket</InputLabel>
         <Select
