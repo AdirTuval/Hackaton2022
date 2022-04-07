@@ -1,6 +1,5 @@
 export const node_list = [
     {
-        "_id": 100,
         "x": 4,
         "y": 5,
         "name": "a",
@@ -8,7 +7,6 @@ export const node_list = [
         "inPath": true,
     },
     {
-        "_id": 101,
         "x": 40,
         "y": 5,
         "name": "b",
@@ -17,7 +15,6 @@ export const node_list = [
 
     },
     {
-        "_id": 102,
         "x": 4,
         "y": 55,
         "name": "c",
@@ -26,7 +23,6 @@ export const node_list = [
 
     },
     {
-        "_id": 102,
         "x": 4,
         "y": 90,
         "name": "c",
@@ -36,7 +32,6 @@ export const node_list = [
 
     },
     {
-        "_id": 102,
         "x": 35,
         "y": 90,
         "name": "c",
@@ -45,7 +40,6 @@ export const node_list = [
 
     },
     {
-        "_id": 102,
         "x": 55,
         "y": 90,
         "name": "c",
@@ -56,4 +50,4 @@ export const node_list = [
 
 ];
 
-export const node_path = [1,3,4,5,6];
+export const node_path = [1, 3, 4, 5, 6];
