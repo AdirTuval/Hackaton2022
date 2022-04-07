@@ -1,6 +1,6 @@
-class Node {
-  constructor(value) {
-    this.value = value;
+export class Node {
+  constructor(id) {
+    this.id = id;
     this.adjacents = []; // adjacency list
   }
 

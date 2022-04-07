@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h3>{CalculatePath()}</h3>
+        <h3>{CalculatePath([4, 6])}</h3>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
