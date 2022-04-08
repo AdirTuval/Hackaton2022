@@ -12,6 +12,19 @@ export const CalculatePath = (productsId) => {
   //   console.log(reconstructPath(shortestProductsPath, floydWarshallMatrix));
 };
 
+// export const CalculatePath = (productsId) => {
+//     const completeGraph = getGraph();
+//     console.log(completeGraph);
+//       let floydWarshallMatrix = initFloydWarshallMatrix(completeGraph);
+//       fillFloydWarshallMatrix(floydWarshallMatrix);
+//       const shortestProductsPath = calculateShortestProductsPath(
+//         floydWarshallMatrix.distance,
+//         productsId
+//       );
+//       console.log("here");
+//       console.log(reconstructPath(shortestProductsPath, floydWarshallMatrix));
+//   };
+
 const getGraph = () => {
   const graphJson = require("./matrix.json");
   let nodes = new Map();
