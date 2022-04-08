@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h3>{CalculatePath([11, 13, 16])}</h3>
+        <h3>{CalculatePath([402])}</h3>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
