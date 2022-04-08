@@ -146,11 +146,6 @@ const MapTest = () => {
         }
     }, [img, canvas, routeFlag])
 
-    const getNameById = () => {
-
-
-    }
-
     const popup = (props) => {
         return (< Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} >
             <p>Some contents...</p>
@@ -158,11 +153,6 @@ const MapTest = () => {
             <p>Some contents...</p>
         </Modal >)
     }
-
-
-
-
-
 
     return (
         <div className={styles.splitScreen}>

@@ -36,9 +36,6 @@ const theme = createTheme({
 const styles = makeStyles({});
 
 function App() {
-  const [supermarket, setSupermarket] = React.useState();
-  const [useMapPage, setUseMapPage] = React.useState(false);
-
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
