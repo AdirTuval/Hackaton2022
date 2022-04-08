@@ -1,29 +1,94 @@
 import { Node } from "./Node";
+import { PriorityQueue } from "./PriorityQueue";
+const H = 33;
+const W = 23;
 export const CalculatePath = (productsId) => {
   const completeGraph = getGraph();
-  console.log(completeGraph);
-  //   let floydWarshallMatrix = initFloydWarshallMatrix(completeGraph);
-  //   fillFloydWarshallMatrix(floydWarshallMatrix);
-  //   const shortestProductsPath = calculateShortestProductsPath(
-  //     floydWarshallMatrix.distance,
-  //     productsId
-  //   );
-  //   console.log("here");
-  //   console.log(reconstructPath(shortestProductsPath, floydWarshallMatrix));
+  const productsPath = calculateShortestProductsPath(
+    productsId,
+    chebychevDistance
+  );
+  console.log(getFullPath(productsPath, completeGraph));
 };
 
-// export const CalculatePath = (productsId) => {
-//     const completeGraph = getGraph();
-//     console.log(completeGraph);
-//       let floydWarshallMatrix = initFloydWarshallMatrix(completeGraph);
-//       fillFloydWarshallMatrix(floydWarshallMatrix);
-//       const shortestProductsPath = calculateShortestProductsPath(
-//         floydWarshallMatrix.distance,
-//         productsId
-//       );
-//       console.log("here");
-//       console.log(reconstructPath(shortestProductsPath, floydWarshallMatrix));
-//   };
+const getFullPath = (productsPath, completeGraph) => {
+  let totalPath = [];
+  for (let i = 0; i < productsPath.length - 1; i++) {
+    let curPairPath = aStarSearch(
+      productsPath[i],
+      productsPath[i + 1],
+      completeGraph
+    ).reverse();
+    curPairPath.shift();
+    totalPath = totalPath.concat(curPairPath);
+  }
+  totalPath.unshift(0);
+  return totalPath;
+};
+
+const aStarSearch = (startNodeId, goalNodeId, graph) => {
+  let explored = new Set();
+  let cost = new Map();
+  let priorityMap = new Map();
+  cost.set(startNodeId, 0);
+  let openSet = new PriorityQueue(
+    (a, b) => priorityMap.get(a) < priorityMap.get(b)
+  );
+  let cameFrom = new Map();
+  cameFrom.set(startNodeId, null);
+  openSet.push(startNodeId);
+
+  while (!openSet.isEmpty()) {
+    let current = openSet.pop();
+    if (!explored.has(current)) {
+      explored.add(current);
+
+      if (current == goalNodeId) {
+        return reconstructPath(cameFrom, goalNodeId);
+      }
+      graph.nodes.get(current).adjacents.forEach((nodeObj) => {
+        let successor = nodeObj.id;
+        let successorCurrentCost = cost.get(current) + 1;
+        if (
+          !cost.has(successor) |
+          (cost.get(successor) > successorCurrentCost)
+        ) {
+          cost.set(successor, successorCurrentCost);
+          let priority =
+            chebychevDistance(successor, goalNodeId) + successorCurrentCost;
+          priorityMap.set(successor, priority);
+          openSet.push(successor);
+          cameFrom.set(successor, current);
+        }
+      });
+    }
+  }
+};
+
+const reconstructPath = (camFrom, goal) => {
+  let path = [];
+  let cur = goal;
+  while (cur != null) {
+    path.push(cur);
+    cur = camFrom.get(cur);
+  }
+  return path;
+};
+
+const chebychevDistance = (nodeId, goalId) => {
+  const cordNode = idToXandY(nodeId);
+  const cordGoal = idToXandY(goalId);
+  return Math.max(
+    Math.abs(cordNode.x - cordGoal.x),
+    Math.abs(cordNode.y - cordGoal.y)
+  );
+};
+
+const idToXandY = (id) => {
+  let y = Math.floor(id / W);
+  let x = id % W;
+  return { y: y, x: x };
+};
 
 const getGraph = () => {
   const graphJson = require("./matrix.json");
@@ -44,50 +109,7 @@ const getGraph = () => {
   return { nodes: nodes, edges: edges };
 };
 
-const initFloydWarshallMatrix = (graph) => {
-  let nodeNum = Math.max(...graph.nodes.keys()) + 1;
-  let distanceMatrix = [...Array(nodeNum)].map((x) =>
-    Array(nodeNum).fill(Infinity)
-  );
-  let nextMatrix = [...Array(nodeNum)].map((x) => Array(nodeNum).fill(null));
-  graph.nodes.forEach((node) => {
-    const curId = node.id;
-    distanceMatrix[curId][curId] = 0;
-    nextMatrix[curId][curId] = node.id;
-  });
-  graph.edges.forEach((edge) => {
-    const nodeA = edge[0];
-    const nodeAId = nodeA.id;
-    const nodeB = edge[1];
-    const nodeBId = nodeB.id;
-    distanceMatrix[nodeAId][nodeBId] = 1;
-    distanceMatrix[nodeBId][nodeAId] = 1;
-    nextMatrix[nodeAId][nodeBId] = nodeBId;
-    nextMatrix[nodeBId][nodeAId] = nodeAId;
-  });
-  return { distance: distanceMatrix, nextNode: nextMatrix };
-};
-
-const fillFloydWarshallMatrix = (matrices) => {
-  const n = matrices.distance.length;
-  let distanceMatrix = matrices.distance;
-  let nextMatrix = matrices.nextNode;
-  for (let k = 0; k < n; k++) {
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        if (
-          distanceMatrix[i][j] >
-          distanceMatrix[i][k] + distanceMatrix[k][j]
-        ) {
-          distanceMatrix[i][j] = distanceMatrix[i][k] + distanceMatrix[k][j];
-          nextMatrix[i][j] = nextMatrix[i][k];
-        }
-      }
-    }
-  }
-};
-
-const calculateShortestProductsPath = (distanceMatrix, productsId) => {
+const calculateShortestProductsPath = (productsId, distanceMetric) => {
   const beginProductId = 0;
   const endProductId = 758;
   let visitedProducts = new Set();
@@ -99,13 +121,13 @@ const calculateShortestProductsPath = (distanceMatrix, productsId) => {
       pathFromStart,
       productsId,
       visitedProducts,
-      distanceMatrix
+      distanceMetric
     );
     addClosestProductToPath(
       pathFromEnd,
       productsId,
       visitedProducts,
-      distanceMatrix
+      distanceMetric
     );
   }
   return pathFromStart.concat(pathFromEnd.reverse());
@@ -115,7 +137,7 @@ const addClosestProductToPath = (
   productsPath,
   allProducts,
   visitedProducts,
-  distanceMatrix
+  distanceMetric
 ) => {
   let minDistance = Infinity;
   let nearestNeighbor = null;
@@ -124,8 +146,8 @@ const addClosestProductToPath = (
     if (visitedProducts.has(product)) {
       continue;
     }
-    if (distanceMatrix[curProductID][product] < minDistance) {
-      minDistance = distanceMatrix[curProductID][product];
+    if (distanceMetric(curProductID, product) < minDistance) {
+      minDistance = distanceMetric(curProductID, product);
       nearestNeighbor = product;
     }
   }
@@ -134,25 +156,4 @@ const addClosestProductToPath = (
   }
   visitedProducts.add(nearestNeighbor);
   productsPath.push(nearestNeighbor);
-};
-
-const reconstructPath = (path, floydWarshallMatrix) => {
-  const nextMatrix = floydWarshallMatrix.nextNode;
-  let finalPath = [];
-  for (let i = 0; i < path.length - 1; i++) {
-    finalPath = finalPath.concat(
-      getShortestPathBetween(path[i], path[i + 1], nextMatrix)
-    );
-  }
-  return finalPath;
-};
-
-const getShortestPathBetween = (nodeA, nodeB, nextMatrix) => {
-  let path = [nodeA];
-  let curNode = nodeA;
-  while (curNode != nodeB) {
-    curNode = nextMatrix[curNode][nodeB];
-    path.push(curNode);
-  }
-  return path;
 };
