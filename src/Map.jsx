@@ -80,14 +80,13 @@ const Map = () => {
 
         // let ctx = canvas.current.getContext("2d")
 
-        const nodes_in_path = [0,24,25,26,27,28]
+        const nodes_in_path = [0, 24,25,26,27,28]
         const nodes = createNodeMap(nodeList)
 
         ctx.fillStyle = "green";
         ctx.beginPath();
         let loc = nodes_in_path[0]
         console.log(nodes.get(loc))
-        ctx.lineWidth = 8;
         ctx.moveTo(nodes.get(loc)["corx"] * x_factor + offset, nodes.get(loc)["cory"] * y_factor + offset);
 
         for (let i = 0; i < nodes_in_path.length - 1; i++) {
@@ -96,6 +95,7 @@ const Map = () => {
             ctx.lineTo(nodes.get(loc)['corx'] * x_factor + offset, nodes.get(loc)['cory'] * y_factor + offset);
         }
         ctx.stroke();
+        // ctx.fillStyle = "red";
     }
     const drawNodes = (ctx) => {
         const nodes = nodeList
