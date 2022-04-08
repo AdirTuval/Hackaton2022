@@ -35,7 +35,7 @@ const MapTest = () => {
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
     const searchRef = useRef("");
-    const productArray = ["Banana", "Milk", "Potato", "Lettuce","Shampoo","Parsley","Butter"];
+    const productArray = ["Banana", "Milk", "Potato", "Lettuce","Shampoo"];
 
     const loadNodeMap = (nodeList) => {
         let nodes = new Map();
