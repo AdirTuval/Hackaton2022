@@ -1,7 +1,7 @@
 export const nodeList = [
   {
     id: 0,
-    product: "undef",
+    product: "0",
     corx: 0,
     cory: 0,
     adjacent: [33],
@@ -9,7 +9,7 @@ export const nodeList = [
   },
   {
     id: 23,
-    product: "undef",
+    product: "23",
     corx: 0,
     cory: 1,
     adjacent: [34, 66, 0],
@@ -17,7 +17,7 @@ export const nodeList = [
   },
   {
     id: 24,
-    product: "undef",
+    product: "24",
     corx: 1,
     cory: 1,
     adjacent: [35, 33, 67],
@@ -25,7 +25,7 @@ export const nodeList = [
   },
   {
     id: 25,
-    product: "undef",
+    product: "25",
     corx: 2,
     cory: 1,
     adjacent: [36, 34, 68],
@@ -53,7 +53,7 @@ export const nodeList = [
     corx: 5,
     cory: 1,
     adjacent: [39, 37, 71],
-    inBuyList: false,
+    inBuyList: true,
   },
   {
     id: 29,
@@ -77,7 +77,7 @@ export const nodeList = [
     corx: 8,
     cory: 1,
     adjacent: [42, 40, 74],
-    inBuyList: false,
+    inBuyList: true,
   },
   {
     id: 32,
@@ -1477,7 +1477,7 @@ export const nodeList = [
     corx: 2,
     cory: 11,
     adjacent: [366, 398, 332],
-    inBuyList: false,
+    inBuyList: true,
   },
   {
     id: 256,
