@@ -8,7 +8,7 @@ import {
 import { Typography } from "@material-ui/core";
 import Home from "./Home";
 import NavBar from "./components/NavBar";
-import Map from "./Map";
+import MapTest from "./MapTest";
 
 const theme = createTheme({
   palette: {
@@ -36,12 +36,15 @@ const theme = createTheme({
 const styles = makeStyles({});
 
 function App() {
+  const [supermarket, setSupermarket] = React.useState();
+  const [useMapPage, setUseMapPage] = React.useState(false);
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         {/* <NavBar useMapPage={useMapPage} setUseMapPage={setUseMapPage}/> */}
         {useMapPage && (
-          <Map supermarket={supermarket} setSupermarket={setSupermarket} />
+          <MapTest supermarket={supermarket} setSupermarket={setSupermarket} />
         )}
         {!useMapPage && (
           <Home
