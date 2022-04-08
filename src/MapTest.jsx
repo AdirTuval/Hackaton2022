@@ -35,7 +35,8 @@ const MapTest = () => {
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
     const searchRef = useRef("");
-    const productArray = ["Banana", "Milk", "Potato", "Lettuce","Shampoo"];
+    const [productArray, setProductAraay] = useState(["Banana", "Milk", "Potato", "Lettuce","Shampoo"])
+
 
     const loadNodeMap = (nodeList) => {
         let nodes = new Map();
@@ -164,26 +165,6 @@ const MapTest = () => {
                             ref={canvas}
                             width={390}
                             height={600}
-                            // onClick={(e) => {
-                            //     const cols = 23
-                            //     // console.log("y ", e.clientY, " x ", e.clientX)
-                            //     let y = Math.floor(Math.max((e.clientY - offset), 0) / y_factor)
-                            //     let x = Math.floor(Math.max((e.clientX - offset), 0) / x_factor)
-                            //     let id = Math.floor((cols * y) + x)
-                            //     console.log("y^ ", y)
-                            //     console.log("x^ ", x)
-                            //     console.log("id^ ", id)
-                            //     const nodesMap = loadNodeMap(nodeList)
-                            //     let price = "10NIS"
-                            //     let product = nodesMap.get(id).product
-                            //     // console.log("id: ", nodeList[id]['product'])
-                            //     let content = `product: ${product} \n price: ${price}`
-                            //     // console.("content: ", content)
-                            //     if ((id >= 0) && (nodesMap.get(id).product != "undef")) {
-                            //         setDialogContent(content)
-                            //         showModal()
-                            //     }
-                            // }}
                         />
                     </TransformComponent>
                 </TransformWrapper>
@@ -197,29 +178,23 @@ const MapTest = () => {
                     Route
                 </Button>
 
-            </div>
-            <div>
-                <Button type="primary" onClick={showModal}>
-                    Open Modal
-                </Button>
-
                 {popup()}
 
-            </div>
-            <div>
+            {/* <div style={{flex:1, alignItems: "center"}}> */}
                 <Autocomplete
                     // disablePortal
                     id="combo-box-demo"
                     freeSolo
                     options={products.map((node) => node.name)}
-                    renderInput={(params) => <TextField {...params} label="freeSolo" inputRef={searchRef}
+                    renderInput={(params) => <TextField {...params} label="Search Product" inputRef={searchRef}
 
                     />}
 
                 />
-                <Button variant="outlined" color="error"
+                <Button variant="outlined" color="error" style={{width:"100%"}}
                     onClick={() => {
                         let name = searchRef.current.value
+                        setProductAraay([searchRef.current.value])
                         // console.log(myMap.get(name))
                         // drawPath()
                     }}
