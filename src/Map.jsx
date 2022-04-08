@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core"
 import React, { useState, useEffect, useRef } from "react"
 import image from "./super_map.jpeg"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { nodeList } from "./newNodeList2";
+import { nodeList } from "./Backend/data";
 import { Products } from "./newNodeList";
 import { myMap } from "./newNodeList";
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 })
 
-const MapTest = () => {
+const Map = () => {
     const styles = useStyles();
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
@@ -234,4 +234,4 @@ const MapTest = () => {
     )
 }
 
-export default MapTest
+export default Map
