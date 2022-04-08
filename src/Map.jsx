@@ -41,7 +41,7 @@ const Map = () => {
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
     const searchRef = useRef("");
-    
+
     const canvas = useRef(null)
     // const [topText, setTopText] = useState('')
     // const [bottomText, setBottomText] = useState('')
@@ -80,14 +80,13 @@ const Map = () => {
 
         // let ctx = canvas.current.getContext("2d")
 
-        const nodes_in_path = [0, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 34 + 23, 58, 59, 60, 61, 61 + 23, 61 + 23 + 1]
+        const nodes_in_path = [0,24,25,26,27,28]
         const nodes = createNodeMap(nodeList)
 
         ctx.fillStyle = "green";
         ctx.beginPath();
         let loc = nodes_in_path[0]
         console.log(nodes.get(loc))
-        ctx.strokeStyle = 'green';
         ctx.lineWidth = 8;
         ctx.moveTo(nodes.get(loc)["corx"] * x_factor + offset, nodes.get(loc)["cory"] * y_factor + offset);
 
@@ -104,17 +103,15 @@ const Map = () => {
         let i = 0
         nodes.forEach(node => {
             // radius, startAngle, endAngle, counterclockwise
-            if (node['product'] != 'undef') {
-                ctx.beginPath();
-                if (node['inBuyList'] == true) {
-                    ctx.fillStyle = "red";
-                }
-                else {
-                    ctx.fillStyle = "blue";
-                }
-                ctx.arc(node['corx'] * x_factor + offset, node['cory'] * y_factor + offset, 4, 0, 2 * Math.PI)
-                ctx.fill()
+            ctx.beginPath();
+            if (node['inBuyList'] == true) {
+                ctx.fillStyle = "red";
             }
+            else {
+                ctx.fillStyle = "blue";
+            }
+            ctx.arc(node['corx'] * x_factor + offset, node['cory'] * y_factor + offset, 4, 0, 2 * Math.PI)
+            ctx.fill()
         }
         );
         ctx.fillStyle = "red";
@@ -166,24 +163,22 @@ const Map = () => {
                             ref={canvas}
                             width={390}
                             height={600}
-                            onClick={(e) => {
+                            onMouseMove={(e) => {
                                 const cols = 23
                                 // console.log("y ", e.clientY, " x ", e.clientX)
-                                let y = Math.floor(Math.max((e.clientY - offset), 0) / y_factor)
-                                let x = Math.floor(Math.max((e.clientX - offset), 0) / x_factor)
+                                let y = Math.floor(Math.max((e.clientY - offset),0) / y_factor)
+                                let x = Math.floor(Math.max((e.clientX - offset),0) / x_factor)
                                 let id = Math.floor((cols * y) + x)
                                 console.log("y^ ", y)
                                 console.log("x^ ", x)
                                 console.log("id^ ", id)
-                                const nodesMap = createNodeMap(nodeList)
-                                let price = "10NIS"
-                                let product = nodesMap.get(id).product
+
                                 // console.log("id: ", nodeList[id]['product'])
-                                let content = `product: ${product} \n price: ${price}`
+                                let content = `product: ${id}`
                                 // console.("content: ", content)
-                                if ((id >= 0) && (nodesMap.get(id).product != "undef")) {
+                                if (id >= 0) {
                                     setDialogContent(content)
-                                    showModal()
+                                    // showModal()
                                 }
                             }}
                         />
