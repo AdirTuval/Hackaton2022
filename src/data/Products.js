@@ -16,7 +16,7 @@ export const Products = [
   },
 
   {
-    name: "Milk",
+    name: "Soy Milk",
     price: 5.9,
     nodeId: 255,
   },
@@ -51,7 +51,7 @@ export const Products = [
     nodeId: 583,
   },
   {
-    name: "Milk",
+    name: "Milk 3%",
     price: 5.94,
     nodeId: 347,
   },

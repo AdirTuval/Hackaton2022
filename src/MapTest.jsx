@@ -35,7 +35,7 @@ const MapTest = () => {
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
     const searchRef = useRef("");
-    const [productArray, setProductAraay] = useState(["Banana", "Milk", "Potato", "Lettuce","Shampoo"])
+    const [productArray, setProductAraay] = useState(["Banana", "Milk 3%", "Potato", "Lettuce","Shampoo"])
 
 
     const loadNodeMap = (nodeList) => {
@@ -106,7 +106,7 @@ const MapTest = () => {
         products.forEach(nodeId => {
                 ctx.beginPath();
                 ctx.fillStyle = "red";
-                ctx.arc(nodes.get(nodeId)['corx'] * x_factor + offset, nodes.get(nodeId)['cory'] * y_factor + offset, 4, 0, 2 * Math.PI)
+                ctx.arc(nodes.get(nodeId)['corx'] * x_factor + offset, nodes.get(nodeId)['cory'] * y_factor + offset, 8     , 0, 2 * Math.PI)
                 ctx.fill();
         });
         ctx.fillStyle = "red";
@@ -137,7 +137,7 @@ const MapTest = () => {
             }
 
         }
-    }, [img, canvas, routeFlag])
+    }, [img, canvas, routeFlag,productArray])
 
 
     const popup = (props) => {
