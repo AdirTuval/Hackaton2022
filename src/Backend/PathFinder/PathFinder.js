@@ -8,7 +8,7 @@ export const CalculatePath = (productsId) => {
     productsId,
     chebychevDistance
   );
-  console.log(getFullPath(productsPath, completeGraph));
+  return getFullPath(productsPath, completeGraph);
 };
 
 const getFullPath = (productsPath, completeGraph) => {

@@ -1,18 +1,13 @@
 import { makeStyles } from "@material-ui/core"
 import React, { useState, useEffect, useRef } from "react"
-import image from "./super_map.jpeg"
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { nodeList } from "./data/SupermarketLayout";
-import { Products } from "./data/Products";
-
-// import { Button } from '@material-ui/core'
+import { Products as products } from "./data/Products";
 import { Modal, Button } from 'antd';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import { CalculatePath } from "./Backend/PathFinder/PathFinder"
 
 import TextField from '@mui/material/TextField';
-
-
 
 const useStyles = makeStyles({
     splitScreen: {
@@ -40,7 +35,29 @@ const MapTest = () => {
     const [img, setImage] = useState(null)
     const [dialogContent, setDialogContent] = useState(0)
     const searchRef = useRef("");
+    const productArray = ["Banana", "Milk", "Potato", "Lettuce","Shampoo","Parsley","Butter"];
+
+    const loadNodeMap = (nodeList) => {
+        let nodes = new Map();
+        nodeList.forEach(node => {
+            nodes.set(node.id, node);
+        })
+        return nodes;
+    };
+
+    const nodes = loadNodeMap(nodeList);
     
+    const productsMap = new Map();
+    products.forEach(product => {
+        productsMap.set(product.name, product);
+    });
+
+    const convertProductsToNodesID = products => {
+        return products.map(product => {
+            return productsMap.get(product).nodeId;
+        });
+    };
+
     const canvas = useRef(null)
     // const [topText, setTopText] = useState('')
     // const [bottomText, setBottomText] = useState('')
@@ -60,67 +77,42 @@ const MapTest = () => {
         setIsModalVisible(false);
     };
 
-    const createNodeMap = (nodeList) => {
-        let map = new Map();
-        nodeList.forEach(node => {
-            map.set(node.id, node);
-        })
-        return map;
-    };
+
 
     const x_factor = 17
     const y_factor = 18
-
     const offset = 20
 
 
-
-    const drawPath = (ctx) => {
-
-        // let ctx = canvas.current.getContext("2d")
-
-        const nodes_in_path = [0, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 34 + 23, 58, 59, 60, 61, 61 + 23, 61 + 23 + 1]
-        const nodes = createNodeMap(nodeList)
+    const drawPath = (ctx, path) => {
 
         ctx.fillStyle = "green";
         ctx.beginPath();
-        let loc = nodes_in_path[0]
-        console.log(nodes.get(loc))
+        let loc = path[0]
         ctx.strokeStyle = 'green';
         ctx.lineWidth = 8;
         ctx.moveTo(nodes.get(loc)["corx"] * x_factor + offset, nodes.get(loc)["cory"] * y_factor + offset);
 
-        for (let i = 0; i < nodes_in_path.length - 1; i++) {
-            loc = nodes_in_path[i + 1]
-            console.log(nodes.get(loc))
+        for (let i = 0; i < path.length - 1; i++) {
+            loc = path[i + 1]
             ctx.lineTo(nodes.get(loc)['corx'] * x_factor + offset, nodes.get(loc)['cory'] * y_factor + offset);
         }
         ctx.stroke();
     }
-    const drawNodes = (ctx) => {
-        const nodes = nodeList
+    const drawNodes = (ctx, products) => {
+        console.log(products)
         ctx.fillStyle = '#000000'
-        let i = 0
-        nodes.forEach(node => {
-            // radius, startAngle, endAngle, counterclockwise
-            if (node['product'] != 'undef') {
+        products.forEach(nodeId => {
                 ctx.beginPath();
-                if (node['inBuyList'] == true) {
-                    ctx.fillStyle = "red";
-                }
-                else {
-                    ctx.fillStyle = "blue";
-                }
-                ctx.arc(node['corx'] * x_factor + offset, node['cory'] * y_factor + offset, 4, 0, 2 * Math.PI)
-                ctx.fill()
-            }
-        }
-        );
+                ctx.fillStyle = "red";
+                ctx.arc(nodes.get(nodeId)['corx'] * x_factor + offset, nodes.get(nodeId)['cory'] * y_factor + offset, 4, 0, 2 * Math.PI)
+                ctx.fill();
+        });
         ctx.fillStyle = "red";
     }
 
     useEffect(() => {
-
+        loadNodeMap(nodes);
         const image = new Image();
         image.src = "https://i.ibb.co/sqJBdPK/super-map.jpg"
         image.onload = () => {
@@ -133,22 +125,19 @@ const MapTest = () => {
 
 
     useEffect(() => {
+        const productsToNodesIDArray = convertProductsToNodesID(productArray);
+        const productsPath = CalculatePath(productsToNodesIDArray)
         if (img && canvas) {
             const ctx = canvas.current.getContext("2d")
             ctx.drawImage(img, 10, 10, canvas.current.width, canvas.current.height)
-            // ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
-            drawNodes(ctx)
             if (routeFlag) {
-                drawPath(ctx)
+                drawPath(ctx, productsPath)
+                drawNodes(ctx, productsToNodesIDArray)
             }
 
         }
     }, [img, canvas, routeFlag])
 
-    const getNameById = () => {
-
-
-    }
 
     const popup = (props) => {
         return (< Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} >
@@ -175,26 +164,26 @@ const MapTest = () => {
                             ref={canvas}
                             width={390}
                             height={600}
-                            onClick={(e) => {
-                                const cols = 23
-                                // console.log("y ", e.clientY, " x ", e.clientX)
-                                let y = Math.floor(Math.max((e.clientY - offset), 0) / y_factor)
-                                let x = Math.floor(Math.max((e.clientX - offset), 0) / x_factor)
-                                let id = Math.floor((cols * y) + x)
-                                console.log("y^ ", y)
-                                console.log("x^ ", x)
-                                console.log("id^ ", id)
-                                const nodesMap = createNodeMap(nodeList)
-                                let price = "10NIS"
-                                let product = nodesMap.get(id).product
-                                // console.log("id: ", nodeList[id]['product'])
-                                let content = `product: ${product} \n price: ${price}`
-                                // console.("content: ", content)
-                                if ((id >= 0) && (nodesMap.get(id).product != "undef")) {
-                                    setDialogContent(content)
-                                    showModal()
-                                }
-                            }}
+                            // onClick={(e) => {
+                            //     const cols = 23
+                            //     // console.log("y ", e.clientY, " x ", e.clientX)
+                            //     let y = Math.floor(Math.max((e.clientY - offset), 0) / y_factor)
+                            //     let x = Math.floor(Math.max((e.clientX - offset), 0) / x_factor)
+                            //     let id = Math.floor((cols * y) + x)
+                            //     console.log("y^ ", y)
+                            //     console.log("x^ ", x)
+                            //     console.log("id^ ", id)
+                            //     const nodesMap = loadNodeMap(nodeList)
+                            //     let price = "10NIS"
+                            //     let product = nodesMap.get(id).product
+                            //     // console.log("id: ", nodeList[id]['product'])
+                            //     let content = `product: ${product} \n price: ${price}`
+                            //     // console.("content: ", content)
+                            //     if ((id >= 0) && (nodesMap.get(id).product != "undef")) {
+                            //         setDialogContent(content)
+                            //         showModal()
+                            //     }
+                            // }}
                         />
                     </TransformComponent>
                 </TransformWrapper>
@@ -222,7 +211,7 @@ const MapTest = () => {
                     // disablePortal
                     id="combo-box-demo"
                     freeSolo
-                    options={Products.map((node) => node.name)}
+                    options={products.map((node) => node.name)}
                     renderInput={(params) => <TextField {...params} label="freeSolo" inputRef={searchRef}
 
                     />}
