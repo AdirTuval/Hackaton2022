@@ -61,10 +61,18 @@ const MapTest = () => {
         setIsModalVisible(false);
     };
 
+    const createNodeMap = (nodeList) => {
+        let map = new Map();
+        nodeList.forEach(node => {
+            map.set(node.id, node);
+        })
+        return map;
+    };
+
     const x_factor = 17
     const y_factor = 18
 
-    const offset = 10
+    const offset = 20
 
 
 
@@ -72,19 +80,19 @@ const MapTest = () => {
 
         // let ctx = canvas.current.getContext("2d")
 
-        const nodes_in_path = [0, 24]
-        const nodes = nodeList
+        const nodes_in_path = [0, 24,25,26,27,28]
+        const nodes = createNodeMap(nodeList)
 
         ctx.fillStyle = "green";
         ctx.beginPath();
         let loc = nodes_in_path[0]
-        console.log(nodes[loc])
-        ctx.moveTo(nodes[loc]["corx"] * x_factor + offset, nodes[loc]["cory"] * y_factor + offset);
+        console.log(nodes.get(loc))
+        ctx.moveTo(nodes.get(loc)["corx"] * x_factor + offset, nodes.get(loc)["cory"] * y_factor + offset);
 
         for (let i = 0; i < nodes_in_path.length - 1; i++) {
             loc = nodes_in_path[i + 1]
-            console.log(nodes[loc])
-            ctx.lineTo(nodes[loc]['corx'] * x_factor + offset, nodes[loc]['cory'] * y_factor + offset);
+            console.log(nodes.get(loc))
+            ctx.lineTo(nodes.get(loc)['corx'] * x_factor + offset, nodes.get(loc)['cory'] * y_factor + offset);
         }
         ctx.stroke();
         // ctx.fillStyle = "red";
@@ -166,11 +174,11 @@ const MapTest = () => {
                             width={390}
                             height={600}
                             onMouseMove={(e) => {
-                                const rows = 33
-                                console.log("y ", e.clientY, " x ", e.clientX)
-                                let y = (e.clientY - offset) / y_factor
-                                let x = (e.clientX - offset) / x_factor
-                                let id = Math.floor((rows * y) + x)
+                                const cols = 23
+                                // console.log("y ", e.clientY, " x ", e.clientX)
+                                let y = Math.floor(Math.max((e.clientY - offset),0) / y_factor)
+                                let x = Math.floor(Math.max((e.clientX - offset),0) / x_factor)
+                                let id = Math.floor((cols * y) + x)
                                 console.log("y^ ", y)
                                 console.log("x^ ", x)
                                 console.log("id^ ", id)
